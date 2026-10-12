@@ -1,0 +1,13 @@
+{
+  "_comment": "UTS test drivers: linear | data_driven | hybrid",
+  "data_driven_enabled": true,
+  "hybrid_enabled": true,
+  "default_mode": "linear",
+  "testdata_file": "generated/TestData.xlsx",
+  "resolve_placeholders_at_runtime": true,
+  "modes": {
+    "linear": "Run steps once as written",
+    "data_driven": "Same steps × each Excel/CSV/JSON row ({{Column}} placeholders)",
+    "hybrid": "Keywords + business components × data rows"
+  }
+}

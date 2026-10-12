@@ -1,0 +1,18 @@
+# Local-only / secrets
+.env
+.env.*
+.env.local
+ftp.env
+worker.env
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.log
+web-data/
+logs/
+reports/
+generated/
+alm-output/
+.pytest_cache/
+_dev_pkg_build/

@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<NewDataSet xmlns:ns1="urn:schemas-microsoft-com:xml-msdata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:schema id="NewDataSet">
+    <xs:element name="NewDataSet" ns1:IsDataSet="true" ns1:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Table">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="SeqNo" type="xs:int" minOccurs="0" />
+                <xs:element name="KeywordDrivenTestDataPath" type="xs:string" minOccurs="0" />
+                <xs:element name="IterationCountForSameData" type="xs:string" minOccurs="0" />
+                <xs:element name="IterationCountForDifferentData" type="xs:string" minOccurs="0" />
+                <xs:element name="Skip" type="xs:boolean" minOccurs="0" />
+                <xs:element name="Remarks" type="xs:string" minOccurs="0" />
+                <xs:element name="isLooped" type="xs:boolean" minOccurs="0" />
+                <xs:element name="BCVersion" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <Table><SeqNo>1</SeqNo><KeywordDrivenTestDataPath>BC_GetTestData</KeywordDrivenTestDataPath><IterationCountForSameData /><IterationCountForDifferentData /><Skip>false</Skip><Remarks /><isLooped>false</isLooped><BCVersion>Latest</BCVersion></Table><Table><SeqNo>2</SeqNo><KeywordDrivenTestDataPath>BC_GetData</KeywordDrivenTestDataPath><IterationCountForSameData /><IterationCountForDifferentData /><Skip>false</Skip><Remarks /><isLooped>false</isLooped><BCVersion>Latest</BCVersion></Table><Table><SeqNo>3</SeqNo><KeywordDrivenTestDataPath>BC_Launch_Application</KeywordDrivenTestDataPath><IterationCountForSameData /><IterationCountForDifferentData /><Skip>false</Skip><Remarks /><isLooped>false</isLooped><BCVersion>Latest</BCVersion></Table><Table><SeqNo>4</SeqNo><KeywordDrivenTestDataPath>BC_Application_opened</KeywordDrivenTestDataPath><IterationCountForSameData /><IterationCountForDifferentData /><Skip>false</Skip><Remarks /><isLooped>false</isLooped><BCVersion>Latest</BCVersion></Table></NewDataSet>

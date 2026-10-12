@@ -1,0 +1,10 @@
+{
+  "Id": "2:100",
+  "Name": "Transfer Amount",
+  "Type": "TEXTBOX",
+  "Label": "Enter amount",
+  "X": "100",
+  "Y": "200",
+  "CustomField": "{EMPTY}",
+  "IsEnabled": "true"
+}

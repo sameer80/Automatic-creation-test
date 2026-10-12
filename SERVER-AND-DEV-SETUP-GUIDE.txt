@@ -1,0 +1,259 @@
+================================================================================
+  UTS Test Automation Suite
+  Step-by-step setup guide — SERVER machine and DEVELOPER machine
+================================================================================
+
+Use this guide after you extract:  UTS-Test-Automation-Suite.zip
+
+There are two ways to run:
+
+  A) DEVELOPER machine (local)     — everything on one PC
+  B) SERVER machine (central)      — web UI on server; browsers on user PCs
+
+Prerequisites (both):
+  - Windows 10/11 (or macOS/Linux)
+  - Python 3.10 or newer  (tick "Add to PATH" on Windows)
+  - Google Chrome installed
+  - Internet once (to install Python packages)
+
+
+================================================================================
+A) DEVELOPER MACHINE SETUP (local package)
+================================================================================
+
+Use this when one person runs UTS on their own PC.
+Browser and web UI both open on the same machine.
+
+STEP 1 — Extract
+  1. Copy UTS-Test-Automation-Suite.zip to the PC
+  2. Extract to a folder, for example:
+       D:\UTS\UTS-Test-Automation-Suite
+  3. Open that folder
+
+STEP 2 — One-time setup
+  Windows:
+    Double-click  SETUP.bat
+  macOS / Linux:
+    chmod +x setup.sh run-web.sh
+    ./setup.sh
+
+  Wait until it says setup is complete.
+  It creates .env (if missing) and installs dependencies.
+
+STEP 3 — Check .env (optional on local)
+  Open .env in Notepad. Defaults are fine for local use:
+
+    UTS_HOST=0.0.0.0
+    UTS_PORT=5050
+    UTS_ADMIN_USERNAME=admin
+    UTS_ADMIN_PASSWORD=Admin@12345
+    UTS_OPEN_BROWSER=true
+    UTS_BROWSER_URL=http://127.0.0.1:5050
+
+  Change the admin password before sharing the machine with others.
+
+STEP 4 — Start the platform
+  Windows:
+    Double-click  RUN-WEB.bat
+  macOS / Linux:
+    ./run-web.sh
+
+STEP 5 — Open and login
+  Browser URL:  http://127.0.0.1:5050
+  Username:     admin   (or value from .env)
+  Password:     from .env (default Admin@12345)
+
+STEP 6 — Use automation
+  1. Login
+  2. Create a Project (URL + credentials)
+  3. Click Scan / Generate / Execute
+  4. Chrome opens on THIS same machine
+  5. Use Stop if you need to cancel a run
+
+Done for developer machine.
+
+
+================================================================================
+B) SERVER MACHINE SETUP (central package)
+================================================================================
+
+Use this when Machine A is the server.
+Users B / C / D open the web UI from their browsers.
+For Chrome to open on each user’s PC, those users also run the Worker
+(see section C below).
+
+STEP 1 — Extract on the server
+  1. Copy UTS-Test-Automation-Suite.zip to the server
+  2. Extract, for example:
+       C:\UTS\UTS-Test-Automation-Suite
+  3. Open that folder
+
+STEP 2 — One-time setup on the server
+  Windows:
+    Double-click  SETUP.bat
+  macOS / Linux:
+    chmod +x setup.sh run-web.sh
+    ./setup.sh
+
+STEP 3 — Configure .env for server
+  Open .env and set:
+
+    DATABASE_URL=sqlite:///web-data/uts_platform.db
+    UTS_SECRET_KEY=CHANGE-THIS-TO-A-LONG-RANDOM-SECRET
+    UTS_ADMIN_USERNAME=admin
+    UTS_ADMIN_PASSWORD=Admin@12345
+    UTS_SESSION_TIMEOUT_MINUTES=30
+    UTS_SECURE_COOKIES=false
+
+    UTS_HOST=0.0.0.0
+    UTS_PORT=5050
+    UTS_OPEN_BROWSER=false
+    UTS_BROWSER_URL=http://127.0.0.1:5050
+    UTS_PUBLIC_URL=http://SERVER-IP:5050
+
+  Replace SERVER-IP with the real server LAN IP.
+  Example: if server IP is 192.168.1.94 then:
+
+    UTS_PUBLIC_URL=http://192.168.1.94:5050
+
+  How to find server IP (Windows):
+    Open Command Prompt → type:  ipconfig
+    Use IPv4 Address under Ethernet or Wi-Fi.
+
+STEP 4 — Allow firewall port 5050
+  Windows:
+    1. Open Windows Defender Firewall → Advanced settings
+    2. Inbound Rules → New Rule
+    3. Port → TCP → 5050 → Allow the connection
+    4. Apply to Domain / Private (and Public if needed)
+    5. Name: UTS Port 5050
+
+  Or PowerShell (Admin):
+    New-NetFirewallRule -DisplayName "UTS 5050" -Direction Inbound -Protocol TCP -LocalPort 5050 -Action Allow
+
+STEP 5 — Start the server
+  Double-click  RUN-WEB.bat
+  Keep this window open while people use the platform.
+
+STEP 6 — Verify from server
+  Open:  http://127.0.0.1:5050
+  Login with admin credentials from .env
+
+STEP 7 — Verify from another PC
+  On another machine on the same network, open:
+    http://SERVER-IP:5050
+  Example:  http://192.168.1.94:5050
+
+  If it does not open:
+    - Confirm RUN-WEB.bat is still running
+    - Confirm firewall rule for 5050
+    - Confirm same LAN / VPN
+    - Confirm SERVER-IP is correct
+
+STEP 8 — Create users (admin)
+  After login as Administrator:
+    Users  → create accounts for each person
+    Roles  → assign Manager / Supervisor / Executive / Viewer as needed
+    Audit  → check login and admin actions
+
+Server is ready.
+
+
+================================================================================
+C) USER / DEV MACHINES CONNECTED TO SERVER (Worker — Option B)
+================================================================================
+
+Use this so Chrome opens on the USER machine, not on the server.
+
+On each user / developer PC (B, C, D):
+
+STEP 1 — Extract the same package
+  Copy and extract UTS-Test-Automation-Suite.zip
+  (same build as the server)
+
+STEP 2 — One-time setup
+  Double-click  SETUP.bat
+  (or ./setup.sh on Mac/Linux)
+
+STEP 3 — Start Worker Agent
+  Windows:
+    Double-click  RUN-WORKER.bat
+  macOS / Linux:
+    chmod +x run-worker.sh
+    ./run-worker.sh
+
+STEP 4 — Enter server URL when asked
+  Example:
+    http://192.168.1.94:5050
+
+STEP 5 — Login with UTS username / password
+  Use the SAME username created on the server (Users page).
+  Keep the worker window open.
+
+STEP 6 — Confirm connection
+  Open the server URL in a browser and login.
+  Top bar should show:  Worker · <machine-name>
+
+STEP 7 — Run tests
+  Create / open a project → Scan / Execute
+  Chrome opens on THAT user machine.
+  Results go back to the server.
+
+
+================================================================================
+D) QUICK COMPARISON
+================================================================================
+
+  Developer local (A):
+    SETUP.bat → RUN-WEB.bat → http://127.0.0.1:5050
+    Browser opens on same PC. No worker needed.
+
+  Server central (B):
+    SETUP.bat → edit .env (HOST 0.0.0.0, PUBLIC_URL) → firewall 5050
+    → RUN-WEB.bat → http://SERVER-IP:5050
+
+  User PC with browser local (C):
+    SETUP.bat → RUN-WORKER.bat → enter server URL → keep open
+    Then use web UI on server; Chrome opens on user PC.
+
+
+================================================================================
+E) COMMON PROBLEMS
+================================================================================
+
+  1. "Python not found"
+     Install Python 3.10+ and tick Add to PATH. Re-open the folder and
+     run SETUP.bat again.
+
+  2. Cannot open http://SERVER-IP:5050 from another PC
+     - RUN-WEB.bat must be running
+     - Firewall must allow TCP 5050
+     - UTS_HOST must be 0.0.0.0
+     - Use correct IP from ipconfig
+
+  3. Login fails / locked
+     Wait for lockout to expire, or reset password as Administrator
+     from Users page (if another admin exists). Default admin is in .env.
+
+  4. Browser opens on server instead of user PC
+     Worker is not connected. Start RUN-WORKER.bat on the user PC and
+     login with the same UTS user.
+
+  5. Worker cannot connect
+     Check server URL (http not https unless configured),
+     server is running, and PC can ping SERVER-IP.
+
+
+================================================================================
+F) DEFAULT LOGIN (change after first login on shared servers)
+================================================================================
+
+  Username: admin
+  Password: value in .env  (example in .env.example: Admin@12345)
+
+  Always change UTS_ADMIN_PASSWORD and UTS_SECRET_KEY before production use.
+
+
+================================================================================
+End of guide
+================================================================================

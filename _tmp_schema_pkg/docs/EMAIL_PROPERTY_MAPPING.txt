@@ -1,0 +1,100 @@
+Subject: UTS UI Property Identification – One-to-One Mapping (Identified vs Not Identified)
+
+To: Team / Clive Dev Team
+From: [Your Name]
+Date: 08 July 2026
+
+---
+
+Hi Team,
+
+Please find attached the UTS property identification mapping for our screenshot-based UI extraction pipeline (D:\uts).
+
+We have documented a one-to-one mapping of which UI properties can be identified from screenshots and which cannot. This will help set correct expectations for UI/UX validation, automation object repository, and test data parameterization.
+
+ATTACHMENTS (text files in D:\uts\):
+  1. PROPERTY_IDENTIFICATION_MAPPING.txt  – Full one-to-one property mapping
+  2. UI_OBJECT_LIST.txt                   – Detected UI object list with types
+  3. PROPERTY_IDENTIFICATION_MAPPING.json – Machine-readable mapping (optional)
+
+---
+
+SUMMARY
+
+From screenshot OCR pipeline, out of 35 frame parameters:
+
+  • 12 properties – IDENTIFIED (YES) – 34%
+  •  3 properties – PARTIAL (sometimes) – 9%
+  •  1 property  – DEFAULT ONLY – 3%
+  • 19 properties – NOT IDENTIFIED (NO) – 54%
+
+---
+
+PROPERTIES WE CAN IDENTIFY (YES)
+
+  Id, Name, Type, Label
+  X, Y, Width, Height (position & size from OCR bounding box)
+  Placeholder, Required (* marker on label)
+  ParentContainer, Confidence, Screenshot source
+
+---
+
+PROPERTIES WE CANNOT IDENTIFY (NO) – Always "Not Available"
+
+  Colors:        Color, BackgroundColor
+  Typography:    FontFamily, FontStyle, FontWeight, FontSize,
+                 LineHeight, LetterSpacing, TextAlign
+  Layout:        LayoutMode, Gap, PaddingTop, PaddingRight,
+                 PaddingBottom, PaddingLeft
+  Border:        BorderWidth, BorderColor, BorderRadius, BoxShadow
+
+Reason: Screenshot OCR reads text and control regions only. It does not
+extract font, color, padding, or border styling from images.
+
+---
+
+PARTIAL (SOMETIMES)
+
+  CurrentValue – only when field has visible text (empty forms = Not Available)
+  Enabled      – disabled-state detection is unreliable
+  Visible      – defaults to True; hidden controls not detected
+
+---
+
+UI OBJECTS DETECTED (Sample: Login screen)
+
+  18 controls identified including:
+  MainWindow, Username, Password, Log in, Remember me, Forgot password,
+  Theme, English, and related labels/buttons.
+
+  Supported object types: TextBox, Button, PasswordBox, CheckBox, Hyperlink,
+  Label, Window, Icon, ComboBox, Grid, Tab, and more.
+
+  See UI_OBJECT_LIST.txt for full object list with types.
+
+---
+
+RECOMMENDATION
+
+  • Use IDENTIFIED properties for functional test automation and screen matching.
+  • Do not assert typography/color/layout from screenshot pipeline alone.
+  • For full UI/UX validation (fonts, colors, borders), integrate native
+    design-tool FRAME export or a dedicated visual comparison tool.
+
+---
+
+Please review the attached mapping files and let me know if you need this
+extended to additional screenshots or the Require Your Approval user story
+package.
+
+Regards,
+[Your Name]
+
+---
+
+ATTACHMENT CHECKLIST
+  [ ] PROPERTY_IDENTIFICATION_MAPPING.txt
+  [ ] UI_OBJECT_LIST.txt
+  [ ] PROPERTY_IDENTIFICATION_MAPPING.json (optional)
+
+Location: D:\uts\

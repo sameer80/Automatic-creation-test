@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<NewDataSet xmlns:ns1="urn:schemas-microsoft-com:xml-msdata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:schema id="NewDataSet">
+    <xs:element name="NewDataSet" ns1:IsDataSet="true" ns1:MainDataTable="Table" ns1:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Table">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="ObjectName" type="xs:string" minOccurs="0" />
+                <xs:element name="InputValue" type="xs:string" minOccurs="0" />
+                <xs:element name="ExpectedValue" type="xs:string" minOccurs="0" />
+                <xs:element name="Action" type="xs:string" minOccurs="0" />
+                <xs:element name="WindowType" type="xs:string" minOccurs="0" />
+                <xs:element name="Step_Descriptions" type="xs:string" minOccurs="0" />
+                <xs:element name="Remarks" type="xs:string" minOccurs="0" />
+                <xs:element name="PreferenceSearch" type="xs:string" minOccurs="0" />
+                <xs:element name="CreateReport" type="xs:boolean" minOccurs="0" />
+                <xs:element name="StepScreenshot" type="xs:base64Binary" minOccurs="0" />
+                <xs:element name="ImageID" type="xs:int" minOccurs="0" />
+                <xs:element name="ImageData" type="xs:base64Binary" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <Table><ObjectName>NonEditableText</ObjectName><InputValue>&lt;ExpectedResult&gt;:Contact page visible</InputValue><ExpectedValue>True</ExpectedValue><Action>VerifyNonEditableText</Action><WindowType /><Step_Descriptions>Contact page visible</Step_Descriptions><Remarks /><PreferenceSearch /><CreateReport>true</CreateReport><ImageID>-1</ImageID></Table></NewDataSet>

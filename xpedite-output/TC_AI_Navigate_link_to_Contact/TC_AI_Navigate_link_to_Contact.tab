@@ -1,0 +1,3 @@
+Id	ScenarioName	MainBatchName	Variable	Value	French	Dutch	Italian	Remarks	Project	SubProject	EnvDBQuery	French_EnvDBQuery	Dutch_EnvDBQuery	Italian_EnvDBQuery	DefaultOBR
+1	TestCase	TC_AI_Navigate_link_to_Contact	<ApplicationURL>	"https://www.maikr.ai/"	""	""	""	""	Demo	Demo	""	""	""	""	""
+2	TestCase	TC_AI_Navigate_link_to_Contact	<ExpectedResult>	"Contact page visible"	""	""	""	""	Demo	Demo	""	""	""	""	""

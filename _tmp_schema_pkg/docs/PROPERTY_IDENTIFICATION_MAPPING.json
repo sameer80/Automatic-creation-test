@@ -1,0 +1,463 @@
+{
+  "project": "UTS - UI Property Identification",
+  "version": "1.0.0",
+  "generated_at": "2026-07-07",
+  "description": "One-to-one mapping of UI/control properties: which can be identified from UTS pipelines and which cannot.",
+  "pipelines": {
+    "screenshot_ocr": {
+      "entry": "screenshot-ui-reader/read_screenshot.py",
+      "output": "results/{screenshot}.json",
+      "converter": "screenshots-to-frame-json.py",
+      "frame_output": "results/frame-parameters/*-frame.json"
+    },
+    "native_frame": {
+      "entry": "sample-element.json / design-tool FRAME export",
+      "exporter": "frame-parameter-export.py",
+      "example": "request-for-cheque-book-parameters.json"
+    },
+    "missing_value_label": "Not Available"
+  },
+  "frame_parameters": [
+    {
+      "property": "Id",
+      "group": "Identity",
+      "screenshot_pipeline": "IDENTIFIED",
+      "native_frame_pipeline": "IDENTIFIED",
+      "identification_source": "screenshot-ui-reader control id + screenshot stem",
+      "not_identified_reason": null,
+      "sample_value": "saba:3"
+    },
+    {
+      "property": "Name",
+      "group": "Identity",
+      "screenshot_pipeline": "IDENTIFIED",
+      "native_frame_pipeline": "IDENTIFIED",
+      "identification_source": "OCR label text (displayed_text / object_name)",
+      "not_identified_reason": null,
+      "sample_value": "Full name"
+    },
+    {
+      "property": "Type",
+      "group": "Identity",
+      "screenshot_pipeline": "IDENTIFIED",
+      "native_frame_pipeline": "IDENTIFIED",
+      "identification_source": "control_detector.py heuristic (TEXTBOX, BUTTON, COMBOBOX, etc.)",
+      "not_identified_reason": "May be Unknown when OCR confidence < 0.45",
+      "sample_value": "TEXTBOX"
+    },
+    {
+      "property": "Label",
+      "group": "Identity",
+      "screenshot_pipeline": "IDENTIFIED",
+      "native_frame_pipeline": "PARTIAL",
+      "identification_source": "OCR displayed_text on screenshot",
+      "not_identified_reason": "Native FRAME export may omit Label (shows Not Available)",
+      "sample_value": "Full name"
+    },
+    {
+      "property": "X",
+      "group": "Position & Size",
+      "screenshot_pipeline": "IDENTIFIED",
+      "native_frame_pipeline": "IDENTIFIED",
+      "identification_source": "OCR bounding_box.x",
+      "not_identified_reason": "Lost when converting debug .ui-objects.json (uses bounding_position, not bounding_box)",
+      "sample_value": "45"
+    },
+    {
+      "property": "Y",
+      "group": "Position & Size",
+      "screenshot_pipeline": "IDENTIFIED",
+      "native_frame_pipeline": "IDENTIFIED",
+      "identification_source": "OCR bounding_box.y",
+      "not_identified_reason": "Same bounding_box vs bounding_position caveat as X",
+      "sample_value": "61"
+    },
+    {
+      "property": "Width",
+      "group": "Position & Size",
+      "screenshot_pipeline": "IDENTIFIED",
+      "native_frame_pipeline": "IDENTIFIED",
+      "identification_source": "OCR bounding_box.width",
+      "not_identified_reason": "Often label-width only, not full input field width",
+      "sample_value": "106"
+    },
+    {
+      "property": "Height",
+      "group": "Position & Size",
+      "screenshot_pipeline": "IDENTIFIED",
+      "native_frame_pipeline": "IDENTIFIED",
+      "identification_source": "OCR bounding_box.height",
+      "not_identified_reason": "Often text-line height, not full control height",
+      "sample_value": "12"
+    },
+    {
+      "property": "Color",
+      "group": "Colors",
+      "screenshot_pipeline": "NOT_IDENTIFIED",
+      "native_frame_pipeline": "PARTIAL",
+      "identification_source": null,
+      "not_identified_reason": "Screenshot pipeline hardcodes {EMPTY}. Native FRAME may include rgba text color only",
+      "sample_value": "Not Available"
+    },
+    {
+      "property": "BackgroundColor",
+      "group": "Colors",
+      "screenshot_pipeline": "NOT_IDENTIFIED",
+      "native_frame_pipeline": "NOT_IDENTIFIED",
+      "identification_source": null,
+      "not_identified_reason": "No pixel/fill color sampling in screenshot OCR; not in typical FRAME export",
+      "sample_value": "Not Available"
+    },
+    {
+      "property": "FontFamily",
+      "group": "Typography",
+      "screenshot_pipeline": "NOT_IDENTIFIED",
+      "native_frame_pipeline": "NOT_IDENTIFIED",
+      "identification_source": null,
+      "not_identified_reason": "OCR cannot read font family; not exported from design tools in current samples",
+      "sample_value": "Not Available"
+    },
+    {
+      "property": "FontStyle",
+      "group": "Typography",
+      "screenshot_pipeline": "NOT_IDENTIFIED",
+      "native_frame_pipeline": "NOT_IDENTIFIED",
+      "identification_source": null,
+      "not_identified_reason": "Not extracted from screenshots or FRAME JSON",
+      "sample_value": "Not Available"
+    },
+    {
+      "property": "FontWeight",
+      "group": "Typography",
+      "screenshot_pipeline": "NOT_IDENTIFIED",
+      "native_frame_pipeline": "NOT_IDENTIFIED",
+      "identification_source": null,
+      "not_identified_reason": "Not extracted from screenshots or FRAME JSON",
+      "sample_value": "Not Available"
+    },
+    {
+      "property": "FontSize",
+      "group": "Typography",
+      "screenshot_pipeline": "NOT_IDENTIFIED",
+      "native_frame_pipeline": "NOT_IDENTIFIED",
+      "identification_source": null,
+      "not_identified_reason": "BBox height is not exported as FontSize",
+      "sample_value": "Not Available"
+    },
+    {
+      "property": "LineHeight",
+      "group": "Typography",
+      "screenshot_pipeline": "NOT_IDENTIFIED",
+      "native_frame_pipeline": "NOT_IDENTIFIED",
+      "identification_source": null,
+      "not_identified_reason": "Not extracted",
+      "sample_value": "Not Available"
+    },
+    {
+      "property": "LetterSpacing",
+      "group": "Typography",
+      "screenshot_pipeline": "NOT_IDENTIFIED",
+      "native_frame_pipeline": "NOT_IDENTIFIED",
+      "identification_source": null,
+      "not_identified_reason": "Not extracted",
+      "sample_value": "Not Available"
+    },
+    {
+      "property": "TextAlign",
+      "group": "Typography",
+      "screenshot_pipeline": "NOT_IDENTIFIED",
+      "native_frame_pipeline": "NOT_IDENTIFIED",
+      "identification_source": null,
+      "not_identified_reason": "Not extracted",
+      "sample_value": "Not Available"
+    },
+    {
+      "property": "LayoutMode",
+      "group": "Layout",
+      "screenshot_pipeline": "NOT_IDENTIFIED",
+      "native_frame_pipeline": "NOT_IDENTIFIED",
+      "identification_source": null,
+      "not_identified_reason": "Flex/grid/layout mode not detected from screenshots",
+      "sample_value": "Not Available"
+    },
+    {
+      "property": "Gap",
+      "group": "Layout",
+      "screenshot_pipeline": "NOT_IDENTIFIED",
+      "native_frame_pipeline": "NOT_IDENTIFIED",
+      "identification_source": null,
+      "not_identified_reason": "Spacing between controls not computed",
+      "sample_value": "Not Available"
+    },
+    {
+      "property": "PaddingTop",
+      "group": "Layout",
+      "screenshot_pipeline": "NOT_IDENTIFIED",
+      "native_frame_pipeline": "NOT_IDENTIFIED",
+      "identification_source": null,
+      "not_identified_reason": "Padding not extracted from screenshots",
+      "sample_value": "Not Available"
+    },
+    {
+      "property": "PaddingRight",
+      "group": "Layout",
+      "screenshot_pipeline": "NOT_IDENTIFIED",
+      "native_frame_pipeline": "NOT_IDENTIFIED",
+      "identification_source": null,
+      "not_identified_reason": "Padding not extracted from screenshots",
+      "sample_value": "Not Available"
+    },
+    {
+      "property": "PaddingBottom",
+      "group": "Layout",
+      "screenshot_pipeline": "NOT_IDENTIFIED",
+      "native_frame_pipeline": "NOT_IDENTIFIED",
+      "identification_source": null,
+      "not_identified_reason": "Padding not extracted from screenshots",
+      "sample_value": "Not Available"
+    },
+    {
+      "property": "PaddingLeft",
+      "group": "Layout",
+      "screenshot_pipeline": "NOT_IDENTIFIED",
+      "native_frame_pipeline": "NOT_IDENTIFIED",
+      "identification_source": null,
+      "not_identified_reason": "Padding not extracted from screenshots",
+      "sample_value": "Not Available"
+    },
+    {
+      "property": "BorderWidth",
+      "group": "Border & Effects",
+      "screenshot_pipeline": "NOT_IDENTIFIED",
+      "native_frame_pipeline": "PARTIAL",
+      "identification_source": "Native FRAME JSON only (e.g. request-for-cheque-book)",
+      "not_identified_reason": "Screenshot pipeline hardcodes {EMPTY}; only available when design tool exports it",
+      "sample_value": "Not Available"
+    },
+    {
+      "property": "BorderColor",
+      "group": "Border & Effects",
+      "screenshot_pipeline": "NOT_IDENTIFIED",
+      "native_frame_pipeline": "NOT_IDENTIFIED",
+      "identification_source": null,
+      "not_identified_reason": "Border color not sampled from screenshots",
+      "sample_value": "Not Available"
+    },
+    {
+      "property": "BorderRadius",
+      "group": "Border & Effects",
+      "screenshot_pipeline": "NOT_IDENTIFIED",
+      "native_frame_pipeline": "NOT_IDENTIFIED",
+      "identification_source": null,
+      "not_identified_reason": "Corner radius not detected",
+      "sample_value": "Not Available"
+    },
+    {
+      "property": "BoxShadow",
+      "group": "Border & Effects",
+      "screenshot_pipeline": "NOT_IDENTIFIED",
+      "native_frame_pipeline": "NOT_IDENTIFIED",
+      "identification_source": null,
+      "not_identified_reason": "Shadow effects not detected",
+      "sample_value": "Not Available"
+    },
+    {
+      "property": "Placeholder",
+      "group": "Control State",
+      "screenshot_pipeline": "IDENTIFIED",
+      "native_frame_pipeline": "NOT_IDENTIFIED",
+      "identification_source": "OCR hint text below/near label (placeholder heuristics)",
+      "not_identified_reason": "Missed when placeholder text not visible or OCR fails",
+      "sample_value": "Your full name"
+    },
+    {
+      "property": "CurrentValue",
+      "group": "Control State",
+      "screenshot_pipeline": "PARTIAL",
+      "native_frame_pipeline": "PARTIAL",
+      "identification_source": "OCR value pairing near label; visible field text only",
+      "not_identified_reason": "Usually Not Available on empty/unfilled forms",
+      "sample_value": "Not Available"
+    },
+    {
+      "property": "Required",
+      "group": "Control State",
+      "screenshot_pipeline": "IDENTIFIED",
+      "native_frame_pipeline": "NOT_IDENTIFIED",
+      "identification_source": "Asterisk (*) marker on OCR label text",
+      "not_identified_reason": "Missed when required indicator is icon-only (no *)",
+      "sample_value": "True"
+    },
+    {
+      "property": "Enabled",
+      "group": "Control State",
+      "screenshot_pipeline": "PARTIAL",
+      "native_frame_pipeline": "NOT_IDENTIFIED",
+      "identification_source": "Visual disabled look heuristic; defaults to true",
+      "not_identified_reason": "Disabled/greyed state detection is unreliable",
+      "sample_value": "True"
+    },
+    {
+      "property": "Visible",
+      "group": "Control State",
+      "screenshot_pipeline": "DEFAULT_ONLY",
+      "native_frame_pipeline": "NOT_IDENTIFIED",
+      "identification_source": "Always true when control appears in OCR",
+      "not_identified_reason": "Hidden/collapsed elements not detected",
+      "sample_value": "True"
+    },
+    {
+      "property": "ParentContainer",
+      "group": "Control State",
+      "screenshot_pipeline": "IDENTIFIED",
+      "native_frame_pipeline": "NOT_IDENTIFIED",
+      "identification_source": "Spatial containment → MainWindow or parent window name",
+      "not_identified_reason": "Section headers may have empty parent",
+      "sample_value": "MainWindow"
+    },
+    {
+      "property": "Confidence",
+      "group": "Control State",
+      "screenshot_pipeline": "IDENTIFIED",
+      "native_frame_pipeline": "NOT_IDENTIFIED",
+      "identification_source": "OCR engine confidence score (0–1)",
+      "not_identified_reason": null,
+      "sample_value": "0.81"
+    },
+    {
+      "property": "Screenshot",
+      "group": "Metadata",
+      "screenshot_pipeline": "IDENTIFIED",
+      "native_frame_pipeline": "NOT_IDENTIFIED",
+      "identification_source": "Source JSON filename stem",
+      "not_identified_reason": null,
+      "sample_value": "saba"
+    }
+  ],
+  "client_json_properties": [
+    {
+      "property": "page_name",
+      "screenshot_pipeline": "IDENTIFIED",
+      "identification_source": "Top OCR lines (_guess_page_name)",
+      "not_identified_reason": "Can be noisy (multiple labels concatenated)"
+    },
+    {
+      "property": "id",
+      "screenshot_pipeline": "IDENTIFIED",
+      "identification_source": "Sequential index in build_client_json",
+      "not_identified_reason": null
+    },
+    {
+      "property": "object_name",
+      "screenshot_pipeline": "IDENTIFIED",
+      "identification_source": "Sanitized label text",
+      "not_identified_reason": null
+    },
+    {
+      "property": "object_type",
+      "screenshot_pipeline": "IDENTIFIED",
+      "identification_source": "control_detector classification",
+      "not_identified_reason": "Unknown when confidence < 0.45"
+    },
+    {
+      "property": "displayed_text",
+      "screenshot_pipeline": "IDENTIFIED",
+      "identification_source": "OCR text",
+      "not_identified_reason": "OCR errors on low-quality images"
+    },
+    {
+      "property": "current_value",
+      "screenshot_pipeline": "PARTIAL",
+      "identification_source": "Value box near label",
+      "not_identified_reason": "Empty on blank forms; buttons may use button text"
+    },
+    {
+      "property": "placeholder",
+      "screenshot_pipeline": "IDENTIFIED",
+      "identification_source": "Placeholder-like OCR text",
+      "not_identified_reason": null
+    },
+    {
+      "property": "required",
+      "screenshot_pipeline": "IDENTIFIED",
+      "identification_source": "* in label OCR",
+      "not_identified_reason": null
+    },
+    {
+      "property": "enabled",
+      "screenshot_pipeline": "PARTIAL",
+      "identification_source": "Disabled visual heuristic; default true",
+      "not_identified_reason": "Unreliable"
+    },
+    {
+      "property": "visible",
+      "screenshot_pipeline": "DEFAULT_ONLY",
+      "identification_source": "Default true",
+      "not_identified_reason": "No hidden-element detection"
+    },
+    {
+      "property": "selected",
+      "screenshot_pipeline": "PARTIAL",
+      "identification_source": "Checkbox/radio/tab visual analysis only",
+      "not_identified_reason": "Not applicable to most control types"
+    },
+    {
+      "property": "bounding_box",
+      "screenshot_pipeline": "IDENTIFIED",
+      "identification_source": "OCR quadrilateral → x, y, width, height",
+      "not_identified_reason": "Inaccurate on merged OCR lines"
+    },
+    {
+      "property": "parent_container",
+      "screenshot_pipeline": "IDENTIFIED",
+      "identification_source": "Bounding-box containment",
+      "not_identified_reason": null
+    },
+    {
+      "property": "confidence",
+      "screenshot_pipeline": "IDENTIFIED",
+      "identification_source": "OCR engine score",
+      "not_identified_reason": null
+    }
+  ],
+  "status_legend": {
+    "IDENTIFIED": "Reliably extracted in normal conditions",
+    "PARTIAL": "Sometimes extracted; often empty or approximate",
+    "DEFAULT_ONLY": "Hardcoded default, not truly detected",
+    "NOT_IDENTIFIED": "Always Not Available / {EMPTY} in this pipeline"
+  },
+  "summary": {
+    "frame_parameters_total": 35,
+    "screenshot_pipeline": {
+      "identified": 12,
+      "partial": 3,
+      "default_only": 1,
+      "not_identified": 19
+    },
+    "native_frame_pipeline": {
+      "identified": 7,
+      "partial": 3,
+      "not_identified": 25
+    },
+    "identified_from_screenshot": [
+      "Id", "Name", "Type", "Label", "X", "Y", "Width", "Height",
+      "Placeholder", "Required", "ParentContainer", "Confidence", "Screenshot"
+    ],
+    "partial_from_screenshot": [
+      "CurrentValue", "Enabled", "Visible"
+    ],
+    "not_identified_from_screenshot": [
+      "Color", "BackgroundColor", "FontFamily", "FontStyle", "FontWeight",
+      "FontSize", "LineHeight", "LetterSpacing", "TextAlign", "LayoutMode",
+      "Gap", "PaddingTop", "PaddingRight", "PaddingBottom", "PaddingLeft",
+      "BorderWidth", "BorderColor", "BorderRadius", "BoxShadow"
+    ]
+  },
+  "reference_files": {
+    "mapping": "PROPERTY_IDENTIFICATION_MAPPING.json",
+    "audit_script": "property_identification_audit.py",
+    "screenshot_sample": "results/frame-parameters/full-name-frame.json",
+    "native_frame_sample": "request-for-cheque-book-parameters.json",
+    "client_json_sample": "results/saba.json"
+  }
+}

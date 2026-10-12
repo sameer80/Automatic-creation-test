@@ -1,0 +1,113 @@
+﻿=== ALL ROLES ===
+
+{'id': 1, 'name': 'Administrator', 'description': 'Built-in Administrator role', 'is_active': 1, 'is_system': 1}
+
+{'id': 4, 'name': 'Executive', 'description': 'Built-in Executive role', 'is_active': 1, 'is_system': 0}
+
+{'id': 2, 'name': 'Manager', 'description': 'Built-in Manager role', 'is_active': 1, 'is_system': 0}
+
+{'id': 3, 'name': 'Supervisor', 'description': 'Built-in Supervisor role', 'is_active': 1, 'is_system': 0}
+
+{'id': 6, 'name': 'TestUser', 'description': 'Scan & run only ´┐¢ no project create/edit/delete', 'is_active': 1, 'is_system': 0}
+
+{'id': 5, 'name': 'Viewer', 'description': 'Built-in Viewer role', 'is_active': 1, 'is_system': 0}
+
+
+
+=== PERMISSIONS BY ROLE ===
+
+ROLE: Administrator | active: 1 | users: ['admin', 'Ashwini1']
+
+   api_farm : create, delete, edit, execute, export, import, view
+
+   audit_logs : export, print, view
+
+   customer_management : approve, create, delete, edit, export, import, print, view
+
+   dashboard : view
+
+   finance : approve, create, delete, edit, export, import, print, view
+
+   inventory : approve, create, delete, edit, export, import, print, view
+
+   projects : create, delete, edit, execute, export, import, view
+
+   purchase : approve, create, delete, edit, export, import, print, view
+
+   reports : export, print, view
+
+   role_management : create, delete, edit, view
+
+   sales : approve, create, delete, edit, export, import, print, view
+
+   settings : edit, view
+
+   user_management : create, delete, edit, export, import, view
+
+   vendor_management : approve, create, delete, edit, export, import, print, view
+
+
+
+ROLE: Executive | active: 1 | users: ['mayur', 'abhiTest']
+
+   api_farm : execute, view
+
+   dashboard : view
+
+   projects : execute, view
+
+   reports : view
+
+
+
+ROLE: Manager | active: 1 | users: ['test1']
+
+   api_farm : create, edit, execute, export, import, view
+
+   dashboard : view
+
+   projects : create, edit, execute, export, import, view
+
+   reports : export, print, view
+
+
+
+ROLE: Supervisor | active: 1 | users: ['testAmit']
+
+   api_farm : create, edit, execute, export, view
+
+   dashboard : view
+
+   projects : create, edit, execute, export, view
+
+   reports : export, view
+
+
+
+ROLE: TestUser | active: 1 | users: ['testing']
+
+   api_farm : execute, view
+
+   dashboard : view
+
+   projects : execute, view
+
+   reports : view
+
+
+
+ROLE: Viewer | active: 1 | users: []
+
+   api_farm : view
+
+   dashboard : view
+
+   projects : view
+
+   reports : view
+
+
+
+=== USERS WITHOUT ROLE_ID ===
+
+

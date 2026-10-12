@@ -1,0 +1,162 @@
+================================================================================
+UTS - ONE-TO-ONE PROPERTY IDENTIFICATION MAPPING
+================================================================================
+Project   : UTS (Screenshot OCR + Frame Parameter Export)
+Version   : 1.0.0
+Date      : 08 July 2026
+Location  : D:\uts\
+Reference : PROPERTY_IDENTIFICATION_MAPPING.json
+
+Pipeline  : Screenshot -> screenshot-ui-reader -> results/*.json
+            -> screenshots-to-frame-json.py -> results/frame-parameters/*-frame.json
+Missing value label in output: "Not Available"
+
+STATUS LEGEND
+-------------
+IDENTIFIED     = Reliably extracted from screenshot OCR pipeline
+PARTIAL        = Sometimes extracted; often empty or approximate
+DEFAULT_ONLY   = Hardcoded default (not truly detected)
+NOT_IDENTIFIED = Always "Not Available" from screenshot pipeline
+
+================================================================================
+SECTION A: FRAME PARAMETERS (35 properties) - SCREENSHOT PIPELINE
+================================================================================
+
+#  | Property          | Group              | Status         | Can Identify?
+---|-------------------|--------------------|----------------|---------------
+ 1 | Id                | Identity           | IDENTIFIED     | YES
+ 2 | Name              | Identity           | IDENTIFIED     | YES
+ 3 | Type              | Identity           | IDENTIFIED     | YES
+ 4 | Label             | Identity           | IDENTIFIED     | YES
+ 5 | X                 | Position & Size    | IDENTIFIED     | YES
+ 6 | Y                 | Position & Size    | IDENTIFIED     | YES
+ 7 | Width             | Position & Size    | IDENTIFIED     | YES
+ 8 | Height            | Position & Size    | IDENTIFIED     | YES
+ 9 | Color             | Colors             | NOT_IDENTIFIED | NO
+10 | BackgroundColor   | Colors             | NOT_IDENTIFIED | NO
+11 | FontFamily        | Typography         | NOT_IDENTIFIED | NO
+12 | FontStyle         | Typography         | NOT_IDENTIFIED | NO
+13 | FontWeight        | Typography         | NOT_IDENTIFIED | NO
+14 | FontSize          | Typography         | NOT_IDENTIFIED | NO
+15 | LineHeight        | Typography         | NOT_IDENTIFIED | NO
+16 | LetterSpacing     | Typography         | NOT_IDENTIFIED | NO
+17 | TextAlign         | Typography         | NOT_IDENTIFIED | NO
+18 | LayoutMode        | Layout             | NOT_IDENTIFIED | NO
+19 | Gap               | Layout             | NOT_IDENTIFIED | NO
+20 | PaddingTop        | Layout             | NOT_IDENTIFIED | NO
+21 | PaddingRight      | Layout             | NOT_IDENTIFIED | NO
+22 | PaddingBottom     | Layout             | NOT_IDENTIFIED | NO
+23 | PaddingLeft       | Layout             | NOT_IDENTIFIED | NO
+24 | BorderWidth       | Border & Effects   | NOT_IDENTIFIED | NO
+25 | BorderColor       | Border & Effects   | NOT_IDENTIFIED | NO
+26 | BorderRadius      | Border & Effects   | NOT_IDENTIFIED | NO
+27 | BoxShadow         | Border & Effects   | NOT_IDENTIFIED | NO
+28 | Placeholder       | Control State      | IDENTIFIED     | YES
+29 | CurrentValue      | Control State      | PARTIAL        | SOMETIMES
+30 | Required          | Control State      | IDENTIFIED     | YES
+31 | Enabled           | Control State      | PARTIAL        | SOMETIMES
+32 | Visible           | Control State      | DEFAULT_ONLY   | DEFAULT TRUE
+33 | ParentContainer   | Control State      | IDENTIFIED     | YES
+34 | Confidence        | Control State      | IDENTIFIED     | YES
+35 | Screenshot        | Metadata           | IDENTIFIED     | YES
+
+================================================================================
+SECTION B: IDENTIFIED PROPERTIES - DETAIL (YES)
+================================================================================
+
+Property          | How Identified                          | Sample Value
+------------------|-----------------------------------------|------------------
+Id                | screenshot_stem:control_id              | saba:3
+Name              | OCR label / displayed_text              | Full name
+Type              | control_detector heuristic              | TEXTBOX
+Label             | OCR displayed_text                      | Full name
+X                 | bounding_box.x                          | 45
+Y                 | bounding_box.y                          | 61
+Width             | bounding_box.width                      | 106
+Height            | bounding_box.height                     | 12
+Placeholder       | OCR hint text near field                | Your full name
+Required          | Asterisk (*) on label                   | True
+ParentContainer   | Spatial containment                     | MainWindow
+Confidence        | OCR engine score                        | 0.81
+Screenshot        | Source JSON filename                    | saba
+
+================================================================================
+SECTION C: PARTIAL / DEFAULT PROPERTIES (SOMETIMES)
+================================================================================
+
+Property          | Status       | When Identified              | When NOT Identified
+------------------|--------------|------------------------------|---------------------------
+CurrentValue      | PARTIAL      | Field has visible text       | Empty/unfilled forms
+Enabled           | PARTIAL      | Disabled look detected       | Defaults to True
+Visible           | DEFAULT_ONLY | Always True if in OCR        | Hidden controls not detected
+
+================================================================================
+SECTION D: NOT IDENTIFIED PROPERTIES (NO) - ALWAYS "Not Available"
+================================================================================
+
+Property          | Group              | Reason Not Identified
+------------------|--------------------|------------------------------------------
+Color             | Colors             | No pixel color extraction from screenshot
+BackgroundColor   | Colors             | No background fill sampling
+FontFamily        | Typography         | OCR cannot read font family
+FontStyle         | Typography         | Not extracted
+FontWeight        | Typography         | Not extracted
+FontSize          | Typography         | Not extracted (bbox height not used)
+LineHeight        | Typography         | Not extracted
+LetterSpacing     | Typography         | Not extracted
+TextAlign         | Typography         | Not extracted
+LayoutMode        | Layout             | Flex/grid not detected
+Gap               | Layout             | Spacing not computed
+PaddingTop        | Layout             | Padding not extracted
+PaddingRight      | Layout             | Padding not extracted
+PaddingBottom     | Layout             | Padding not extracted
+PaddingLeft       | Layout             | Padding not extracted
+BorderWidth       | Border & Effects   | Hardcoded {EMPTY} in screenshot pipeline
+BorderColor       | Border & Effects   | Border color not sampled
+BorderRadius      | Border & Effects   | Corner radius not detected
+BoxShadow         | Border & Effects   | Shadow not detected
+
+================================================================================
+SECTION E: CLIENT JSON PROPERTIES (screenshot-ui-reader output)
+================================================================================
+
+#  | Property         | Status         | Can Identify?
+---|------------------|----------------|---------------
+ 1 | page_name        | IDENTIFIED     | YES
+ 2 | id               | IDENTIFIED     | YES
+ 3 | object_name      | IDENTIFIED     | YES
+ 4 | object_type      | IDENTIFIED     | YES
+ 5 | displayed_text   | IDENTIFIED     | YES
+ 6 | current_value    | PARTIAL        | SOMETIMES
+ 7 | placeholder      | IDENTIFIED     | YES
+ 8 | required         | IDENTIFIED     | YES
+ 9 | enabled          | PARTIAL        | SOMETIMES
+10 | visible          | DEFAULT_ONLY   | DEFAULT TRUE
+11 | selected         | PARTIAL        | SOMETIMES (checkbox/radio/tab only)
+12 | bounding_box     | IDENTIFIED     | YES (x, y, width, height)
+13 | parent_container | IDENTIFIED     | YES
+14 | confidence       | IDENTIFIED     | YES
+
+================================================================================
+SECTION F: SUMMARY COUNTS (Screenshot Pipeline)
+================================================================================
+
+Total frame properties     : 35
+IDENTIFIED (YES)           : 12  (34%)
+PARTIAL (SOMETIMES)        :  3  ( 9%)
+DEFAULT_ONLY               :  1  ( 3%)
+NOT_IDENTIFIED (NO)        : 19  (54%)
+
+IDENTIFIED list:
+  Id, Name, Type, Label, X, Y, Width, Height, Placeholder, Required,
+  ParentContainer, Confidence, Screenshot
+
+NOT IDENTIFIED list:
+  Color, BackgroundColor, FontFamily, FontStyle, FontWeight, FontSize,
+  LineHeight, LetterSpacing, TextAlign, LayoutMode, Gap, PaddingTop,
+  PaddingRight, PaddingBottom, PaddingLeft, BorderWidth, BorderColor,
+  BorderRadius, BoxShadow
+
+================================================================================
+END OF MAPPING
+================================================================================

@@ -1,0 +1,115 @@
+================================================================================
+UTS - UI OBJECT LIST (Detected Controls)
+================================================================================
+Source    : D:\uts\results\ALL-CONTROLS.json
+Date      : 08 July 2026
+Note      : Objects detected from screenshot OCR pipeline
+
+================================================================================
+SCREEN 1: 1 Login with user name-filled.png
+Page Name : SMART BANK ★ Theme AE English
+================================================================================
+
+#  | Object Name              | Object Type  | Displayed Text           | Required
+---|--------------------------|--------------|--------------------------|----------
+ 1 | MainWindow               | Window       | Application Window       | No
+ 2 | Theme                    | Button       | ★ Theme                  | No
+ 3 | BANK                     | Icon         | BANK                     | No
+ 4 | SMART                    | TextBox      | SMART                    | No
+ 5 | AE                       | Label        | AE                       | No
+ 6 | English                  | Button       | English                  | No
+ 7 | BANK                     | Label        | BANK                     | No
+ 8 | Username                 | TextBox      | Username                 | No
+ 9 | Remember_me              | CheckBox     | Remember me              | No
+10 | Johnsmith                | TextBox      | Johnsmith                | No
+11 | Password                 | PasswordBox  | Password                 | No
+12 | Empowering               | Label        | Empowering               | No
+13 | the_future_of_banking    | Label        | the future of banking    | No
+14 | Forgot_password          | Hyperlink    | Forgot password?         | No
+15 | Log_in                   | Button       | Log in                   | No
+16 | Self_registration        | Hyperlink    | Self registration        | No
+17 | Resumeapplication        | Hyperlink    | Resume application       | No
+18 | IntellectDesignArenaLtd_2026 | Label    | Intellect Design Arena Ltd 2026 | No
+
+================================================================================
+SUPPORTED OBJECT TYPES (detectable by control_detector.py)
+================================================================================
+
+ 1. Label
+ 2. TextBox
+ 3. PasswordBox
+ 4. TextArea
+ 5. Button
+ 6. Hyperlink
+ 7. CheckBox
+ 8. RadioButton
+ 9. ToggleSwitch
+10. ComboBox
+11. DatePicker
+12. TimePicker
+13. List
+14. ListBox
+15. Grid
+16. Table
+17. Tab
+18. Window
+19. Card
+20. SearchBox
+21. Numeric Input
+22. ProgressBar
+23. Slider
+24. Image
+25. Icon
+26. Unknown (when OCR confidence < 0.45)
+
+================================================================================
+OBJECT PROPERTIES PER CONTROL (Client JSON schema)
+================================================================================
+
+Property          | Always Present | Identified from Screenshot?
+------------------|----------------|----------------------------
+id                | Yes            | YES
+object_name       | Yes            | YES
+object_type       | Yes            | YES
+displayed_text    | Yes            | YES
+current_value     | Yes            | PARTIAL (often empty)
+placeholder       | Yes            | YES (when visible)
+required          | Yes            | YES (* marker)
+enabled           | Yes            | PARTIAL
+visible           | Yes            | DEFAULT (true)
+selected          | Yes            | PARTIAL (checkbox/radio/tab)
+bounding_box      | Yes            | YES (x, y, width, height)
+parent_container  | Yes            | YES
+confidence        | Yes            | YES
+
+================================================================================
+FRAME PARAMETER OBJECT FIELDS (per control export)
+================================================================================
+
+Each UI object exported to frame-parameters JSON contains these fields:
+
+IDENTIFIED (populated):
+  Id, Name, Type, Label, X, Y, Width, Height, Placeholder, Required,
+  Enabled, Visible, ParentContainer, Confidence, Screenshot
+
+NOT IDENTIFIED (Not Available):
+  Color, BackgroundColor, FontFamily, FontStyle, FontWeight, FontSize,
+  LineHeight, LetterSpacing, TextAlign, LayoutMode, Gap, PaddingTop,
+  PaddingRight, PaddingBottom, PaddingLeft, BorderWidth, BorderColor,
+  BorderRadius, BoxShadow
+
+PARTIAL:
+  CurrentValue (empty when form field not filled)
+
+================================================================================
+TOTAL OBJECT COUNT (current sample)
+================================================================================
+
+Screens processed : 1
+Controls detected : 18
+Object types used : Window, Button, Icon, TextBox, Label, PasswordBox,
+                    CheckBox, Hyperlink
+
+================================================================================
+END OF OBJECT LIST
+================================================================================
